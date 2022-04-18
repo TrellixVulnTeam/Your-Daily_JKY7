@@ -1,0 +1,21 @@
+{
+  "name": "your-daily",
+  "version": "1.0.0",
+  "description": "Your Daily Project",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anurag",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.3",
+    "express-validation": "^3.0.8",
+    "jsonwebtoken": "^8.5.1",
+    "node-gyp": "^9.0.0",
+    "nodemon": "^2.0.15",
+    "pg": "^8.7.3"
+  }
+}

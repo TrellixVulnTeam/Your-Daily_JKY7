@@ -5,7 +5,7 @@ const secretKey = 'youhavetobecarefulwhilegivingthissecretkey'
 
 const createToken = async(userID)=>{
     try{
-        const token = await jwt.sign({id:userID,expiryTime:'1h'},secretKey)
+        const token = await jwt.sign({id:userID},secretKey, {expiresIn:"1h"})
         return token
     }
     catch(error){

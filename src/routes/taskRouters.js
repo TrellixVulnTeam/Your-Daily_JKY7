@@ -1,15 +1,17 @@
 const { Router } = require('express');
 const express = require('express')
 const taskRouter = express.Router()
-const { dashboard ,userDetails,singleUserDetails, all_items, addItem, cartPersonDetails, deliveryBoyDetails, addCartPerson, declinedOrders, disputedOrders, scheduledOrders, downloadScheduledOrders, newOrders, acceptNewOrders, acceptRequest, singleCartPerson, cancelScheduledOrders} = require('../controllers/tasks');
+const { dashboard ,getAllUserDetails,getUserById, getAllItems, createItem, getCartPersonDetails, getDeliveryBoyDetails, addCartPerson, declinedOrders, disputedOrders, scheduledOrders, downloadScheduledOrders, newOrders, acceptNewOrders, acceptRequest, singleCartPerson, cancelScheduledOrders} = require('../controllers/tasks');
 const { pool } = require('../database/connection');
 const authenticate = require('../middlewares/auth');
+const permission = require('../middlewares/permission');
 
 
 
 
 
-taskRouter.use(authenticate)
+taskRouter.use(authenticate,permission)
+
 
 
 
@@ -19,21 +21,21 @@ taskRouter.use(authenticate)
 
 taskRouter.get('/',dashboard)
 
-taskRouter.get('/user_details',userDetails)
+taskRouter.get('/users',getAllUserDetails)
 
-taskRouter.get('/user_details/:ID',singleUserDetails)
+taskRouter.get('/user/:ID',getUserById)
 
-taskRouter.get('/items/:catID',all_items)
+taskRouter.get('/items/:catID',getAllItems)
 
-taskRouter.post('/item/:catID',addItem)
+taskRouter.post('/item/:catID',createItem)
 
-taskRouter.get('/cart_person_details',cartPersonDetails)
+taskRouter.get('/cart_persons',getCartPersonDetails)
 
-taskRouter.get('/cart_person_details/:ID',singleCartPerson)
+taskRouter.get('/cart_person/:ID',singleCartPerson)
 
-taskRouter.post('/cart_person/addCartPerson',addCartPerson)
+taskRouter.post('/cart_person',addCartPerson)
 
-taskRouter.get('/delivery_boy_details',deliveryBoyDetails)
+taskRouter.get('/delivery_boys',getDeliveryBoyDetails)
 
 taskRouter.get('/declined_orders',declinedOrders)
 
@@ -41,13 +43,13 @@ taskRouter.get('/disputed_orders',disputedOrders)
 
 taskRouter.get('/scheduled_orders',scheduledOrders)
 
-taskRouter.get('/download/scheduled_orders/:startDate/:endDate',downloadScheduledOrders)
+taskRouter.get('/download/scheduled_order',downloadScheduledOrders)
 
-taskRouter.put('/cancel_scheduled_order/:ID',cancelScheduledOrders)
+taskRouter.delete('/schedule_order/:ID',cancelScheduledOrders)
 
 taskRouter.get('/new_orders_list',newOrders)
 
-taskRouter.get('/new_orders',acceptNewOrders)
+taskRouter.get('/accept_orders',acceptNewOrders)
 
 taskRouter.post('/accept_request',acceptRequest)
 
